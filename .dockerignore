@@ -1,0 +1,6 @@
+venv
+dev-tools
+__pycache__
+.idea
+db
+nginx
