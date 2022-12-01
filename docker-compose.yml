@@ -6,12 +6,10 @@ services:
     env_file: .env
     links:
       - db
-#    expose:
-#      - "5550"
+    expose:
+      - "5550"
     volumes:
       - web-files:/python-docker
-    ports:
-      - "5555:5550"
   db:
     image: mysql:8
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
@@ -35,7 +33,6 @@ services:
     image: "redis/redis-stack:latest"
     ports:
       - "6379:6379"
-      - "60888:8001"
     volumes:
       - cache-files:/data
   # 正式环境请注释或删除掉phpmyadmin环境，切记！
@@ -48,7 +45,7 @@ services:
       - PMA_HOST=db
       - MYSQL_ROOT_PASSWORD=root_password
     ports:
-      - "60880:80"
+      - "80"
 
 volumes:
   web-files:
