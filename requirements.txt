@@ -28,7 +28,7 @@ Flask-Cors==3.0.10
 # Redis & Background Task
 redis==4.3.4
 redis_om==0.0.27
-
+celery[redis]==5.2.7
 # Payment Gateway
 stripe==4.1.0
 # Web3

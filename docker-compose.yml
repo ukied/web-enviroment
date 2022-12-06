@@ -12,7 +12,7 @@ services:
       - web-files:/python-docker
   db:
     image: mysql:8
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0 --default_authentication_plugin=mysql_native_password
     expose:
       - "3306"
     environment:
@@ -24,28 +24,18 @@ services:
     volumes:
       - database-files:/var/lib/mysql
       - ./db:/docker-entrypoint-initdb.d/:ro
-  nginx:
-    build: ./nginx
-    restart: always
-    ports:
-      - "80:80"
+#  nginx:
+#    build: ./nginx
+#    restart: always
+#    ports:
+#      - "80:80"
   redis:
     image: "redis/redis-stack:latest"
     ports:
-      - "6379:6379"
+      - "6379"
     volumes:
       - cache-files:/data
-  # 正式环境请注释或删除掉phpmyadmin环境，切记！
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    depends_on:
-      - db
-    environment:
-      - PMA_HOST=db
-      - MYSQL_ROOT_PASSWORD=root_password
-    ports:
-      - "80"
+
 
 volumes:
   web-files:
