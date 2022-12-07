@@ -1,6 +1,7 @@
 # Copyright (c) 2022 present International Economic Develpment Limited
+# docker buildx build -t zhukainet/environment:app --platform=linux/arm,linux/arm64,linux/amd64 . --push
 
-FROM python:3.10-slim-buster
+FROM python:3.10-bullseye
 
 MAINTAINER kai.zhu "zhukai@zhukai.net"
 
@@ -17,7 +18,10 @@ RUN pip config set install.trusted-host mirrors.aliyun.com
 # 增加db支持
 RUN apt-get update
 RUN apt-get install -y gcc
-RUN apt-get install -y python-mysqldb default-libmysqlclient-dev
+RUN apt-get install -y python3-mysqldb default-libmysqlclient-dev
+## 增加其他支持
+#RUN apt-get install -y --reinstall build-essential
+#RUN apt-get install -y libffi-dev libtiff-dev
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
